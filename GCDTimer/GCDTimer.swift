@@ -11,7 +11,7 @@ import Foundation
 /**
 *  GCD Timer.
 */
-class GCDTimer {
+public class GCDTimer {
     
     /// A serial queue for processing our timer tasks
     private static let gcdTimerQueue = dispatch_queue_create("gcdTimerQueue", DISPATCH_QUEUE_SERIAL)
