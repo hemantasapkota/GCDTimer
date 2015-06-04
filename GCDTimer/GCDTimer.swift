@@ -24,7 +24,7 @@ public class GCDTimer {
     
     /// Event that is executed repeatedly
     private var event: (() -> Void)!
-    var Event: (() -> Void) {
+    public var Event: (() -> Void) {
         get {
             return event
         }
@@ -45,21 +45,21 @@ public class GCDTimer {
     
     :returns: self
     */
-    init(intervalInSecs: UInt64) {
+    public init(intervalInSecs: UInt64) {
         self.interval = intervalInSecs
     }
     
     /**
     Start the timer.
     */
-    func start() {
+    public func start() {
         dispatch_resume(timerSource)
     }
     
     /**
     Pause the timer.
     */
-    func pause() {
+    public func pause() {
         dispatch_suspend(timerSource)
     }
 }
