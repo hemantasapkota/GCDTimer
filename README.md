@@ -54,6 +54,11 @@ class Demo {
 * Add ```github "hemantasapkota/GCDTimer"``` to your ```cartfile```
 * Execute ```carthage update```
 
+### Example ###
+The example shows how to use GCDTimer to periodically poll newly submitted items from Hacker News.
+
+![ExampleSS](Example/GCDTimerExample/ExampleSS.png)
+
 ### Author ###
 * [Hemanta Sapkota](https://twitter.com/ozhemanta) / [Blog](http://hemantasapkota.github.io/) / [Linked In](https://au.linkedin.com/in/hemantasapkota)
 
