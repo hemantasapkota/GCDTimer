@@ -498,6 +498,7 @@
 				2E3CCE3D1B2038190085EA22 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2E3CCE3E1B2038190085EA22 /* Build configuration list for PBXNativeTarget "GCDTimerExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -506,6 +507,7 @@
 				2E3CCE401B2038190085EA22 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
