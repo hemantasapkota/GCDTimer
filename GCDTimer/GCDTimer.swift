@@ -20,7 +20,7 @@ public class GCDTimer {
     private let timerSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, GCDTimer.gcdTimerQueue)
     
     /// Default internal: 1 second
-    private var interval:UInt64 = 1
+    private var interval:Double = 1
     
     /// Event that is executed repeatedly
     private var event: (() -> Void)!
@@ -31,7 +31,7 @@ public class GCDTimer {
         set {
             event = newValue
             
-            dispatch_source_set_timer(timerSource, DISPATCH_TIME_NOW, NSEC_PER_SEC * interval, 0)
+            dispatch_source_set_timer(timerSource, DISPATCH_TIME_NOW, UInt64(interval * Double(NSEC_PER_SEC)), 0)
             dispatch_source_set_event_handler(timerSource, { () -> Void in
                 self.event()
             })
@@ -45,7 +45,7 @@ public class GCDTimer {
     
     :returns: self
     */
-    public init(intervalInSecs: UInt64) {
+    public init(intervalInSecs: Double) {
         self.interval = intervalInSecs
     }
     

@@ -22,7 +22,7 @@ class GCDTimerTests: XCTestCase {
         super.tearDown()
     }
     
-    func testTimer() {
+    func testTimer1() {
         var timer = GCDTimer(intervalInSecs: 1)
         
         var index = 0
@@ -35,6 +35,21 @@ class GCDTimerTests: XCTestCase {
         NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 10))
         
         XCTAssert(index > 10, "Event should have run for at least 10 seconds.")
+    }
+
+    func testTimer2() {
+        var timer = GCDTimer(intervalInSecs: 0.1)
+
+        var index = 0
+        timer.Event = {
+            println("Hello \(index++)")
+        }
+
+        timer.start()
+
+        NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 1))
+
+        XCTAssert(index > 10, "Event should have run for at least 1 seconds.")
     }
     
     func testAutofinishingTimer() {
