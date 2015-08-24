@@ -3,8 +3,9 @@
 ### GCDTimer ###
 Grand Central Dispatch (GCD) Timer in Swift
 
-### Usage - Long running timer ###
+### Usage ###
 
+#### Long running timer ####
 ```
 import GCDTimer
 
@@ -28,7 +29,7 @@ class Demo {
 
 ```
 
-### Usage - Autofinishing timer ###
+#### Autofinishing timer ####
 
 ```
 import GCDTimer
@@ -47,6 +48,15 @@ class Demo {
   }
   
 }
+```
+
+#### Dispatch After - Delay ####
+
+```
+var index = 0
+GCDTimer.delay(2, block: { () -> Void in
+    index++
+})
 ```
 
 ### Installation ###
