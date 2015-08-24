@@ -21,7 +21,7 @@ public class GCDTimer {
     
     /// Default internal: 1 second
     private var interval:Double = 1
-    
+
     /// Event that is executed repeatedly
     private var event: (() -> Void)!
     public var Event: (() -> Void) {
@@ -30,7 +30,7 @@ public class GCDTimer {
         }
         set {
             event = newValue
-            
+
             dispatch_source_set_timer(timerSource, DISPATCH_TIME_NOW, UInt64(interval * Double(NSEC_PER_SEC)), 0)
             dispatch_source_set_event_handler(timerSource, { () -> Void in
                 self.event()
@@ -61,5 +61,11 @@ public class GCDTimer {
     */
     public func pause() {
         dispatch_suspend(timerSource)
+    }
+
+    /* Execute a block after a delay */
+    class func delay(afterSecs: Double, block: dispatch_block_t) {
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(afterSecs * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, gcdTimerQueue, block)
     }
 }

@@ -69,9 +69,23 @@ class GCDTimerTests: XCTestCase {
         NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 10))
         
         XCTAssert(index == 0, "Timer should have paused.")
-        
     }
-    
+
+    func testDelayedExecution() {
+        var index = 0
+        GCDTimer.delay(2, block: { () -> Void in
+            index++
+        })
+
+        NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 1))
+
+        XCTAssert(index == 0, "The block shouldn't have been executed")
+
+        NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 2))
+
+        XCTAssert(index == 1, "The block should have executed after 2 secs.")
+    }
+
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measureBlock() {
