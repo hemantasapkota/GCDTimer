@@ -39,33 +39,43 @@ public class GCDTimer {
     }
     
     /**
-    Init a GCD timer in a paused state.
-    
-    :param: intervalInSecs Time interval in seconds
-    
-    :returns: self
+        Init a GCD timer in a paused state.
+
+        :param: intervalInSecs Time interval in seconds
+        
+        :returns: self
     */
     public init(intervalInSecs: Double) {
         self.interval = intervalInSecs
     }
     
     /**
-    Start the timer.
+        Start the timer.
     */
     public func start() {
         dispatch_resume(timerSource)
     }
     
     /**
-    Pause the timer.
+        Pause the timer.
     */
     public func pause() {
         dispatch_suspend(timerSource)
     }
 
-    /* Execute a block after a delay */
+    /**
+        Executes a block after a delay on the main thread.
+    */
     public class func delay(afterSecs: Double, block: dispatch_block_t) {
         let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(afterSecs * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, gcdTimerQueue, block)
+        dispatch_after(delayTime, dispatch_get_main_queue(), block)
+    }
+
+    /**
+        Executes a block after a delay on a specified queue.
+    */
+    public class func delay(afterSecs: Double, queue: dispatch_queue_t, block: dispatch_block_t) {
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(afterSecs * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, queue, block)
     }
 }
