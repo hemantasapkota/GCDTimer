@@ -64,7 +64,7 @@ public class GCDTimer {
     }
 
     /* Execute a block after a delay */
-    class func delay(afterSecs: Double, block: dispatch_block_t) {
+    public class func delay(afterSecs: Double, block: dispatch_block_t) {
         let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(afterSecs * Double(NSEC_PER_SEC)))
         dispatch_after(delayTime, gcdTimerQueue, block)
     }
