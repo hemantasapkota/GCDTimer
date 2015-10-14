@@ -41,9 +41,9 @@ public class GCDTimer {
     /**
         Init a GCD timer in a paused state.
 
-        :param: intervalInSecs Time interval in seconds
+        - parameter intervalInSecs: Time interval in seconds
         
-        :returns: self
+        - returns: self
     */
     public init(intervalInSecs: Double) {
         self.interval = intervalInSecs

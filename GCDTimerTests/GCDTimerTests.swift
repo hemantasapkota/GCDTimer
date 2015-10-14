@@ -23,11 +23,11 @@ class GCDTimerTests: XCTestCase {
     }
     
     func testTimer1() {
-        var timer = GCDTimer(intervalInSecs: 1)
+        let timer = GCDTimer(intervalInSecs: 1)
         
         var index = 0
         timer.Event = {
-            println("Hello \(index++)")
+            print("Hello \(index++)")
         }
         
         timer.start()
@@ -38,11 +38,11 @@ class GCDTimerTests: XCTestCase {
     }
 
     func testTimer2() {
-        var timer = GCDTimer(intervalInSecs: 0.1)
+        let timer = GCDTimer(intervalInSecs: 0.1)
 
         var index = 0
         timer.Event = {
-            println("Hello \(index++)")
+            print("Hello \(index++)")
         }
 
         timer.start()
@@ -53,11 +53,11 @@ class GCDTimerTests: XCTestCase {
     }
     
     func testAutofinishingTimer() {
-        var timer = GCDTimer(intervalInSecs: 1)
+        let timer = GCDTimer(intervalInSecs: 1)
         
         var index = 0
         timer.Event = {
-            println("Timer is running: \(index++)")
+            print("Timer is running: \(index++)")
             if index == 10 {
                 timer.pause()
                 index = 0
