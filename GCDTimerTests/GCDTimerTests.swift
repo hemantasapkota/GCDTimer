@@ -22,12 +22,40 @@ class GCDTimerTests: XCTestCase {
         super.tearDown()
     }
     
+    func testTimerIsStartedOnce() {
+        let timer = GCDTimer(intervalInSecs: 1)
+        
+        var index = 0
+        timer.Event = {
+            index += 1
+            print("Hello \(index)")
+        }
+        
+        // start the timer three times
+        timer.start()
+        timer.start()
+        timer.start()
+        
+        NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 5))
+        XCTAssert(index >= 5, "Event should have run for at least 5 seconds.")
+        
+        index = 0
+        
+        timer.pause()
+        
+        timer.start()
+        
+        NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 5))
+        XCTAssert(index >= 5, "Event should have run for at least 5 seconds.")
+    }
+    
     func testTimer1() {
         let timer = GCDTimer(intervalInSecs: 1)
         
         var index = 0
         timer.Event = {
-            print("Hello \(index++)")
+            index += 1
+            print("Hello \(index)")
         }
         
         timer.start()
@@ -42,7 +70,8 @@ class GCDTimerTests: XCTestCase {
 
         var index = 0
         timer.Event = {
-            print("Hello \(index++)")
+            index += 1
+            print("Hello \(index)")
         }
 
         timer.start()
@@ -57,7 +86,8 @@ class GCDTimerTests: XCTestCase {
         
         var index = 0
         timer.Event = {
-            print("Timer is running: \(index++)")
+            index += 1
+            print("Timer is running: \(index)")
             if index == 10 {
                 timer.pause()
                 index = 0
@@ -74,7 +104,7 @@ class GCDTimerTests: XCTestCase {
     func testDelayedExecution() {
         var index = 0
         GCDTimer.delay(2, block: { () -> Void in
-            index++
+            index += 1
         })
 
         NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 1))
@@ -92,5 +122,7 @@ class GCDTimerTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+    
+
     
 }

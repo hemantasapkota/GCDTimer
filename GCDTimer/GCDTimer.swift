@@ -21,6 +21,9 @@ public class GCDTimer {
     
     /// Default internal: 1 second
     private var interval:Double = 1
+    
+    /// Ensure timer is started only once
+    private var startOnceToken: Int = 0
 
     /// Event that is executed repeatedly
     private var event: (() -> Void)!
@@ -53,7 +56,9 @@ public class GCDTimer {
         Start the timer.
     */
     public func start() {
-        dispatch_resume(timerSource)
+        dispatch_once(&startOnceToken) {
+            dispatch_resume(self.timerSource)
+        }
     }
     
     /**
@@ -61,6 +66,7 @@ public class GCDTimer {
     */
     public func pause() {
         dispatch_suspend(timerSource)
+        startOnceToken = 0
     }
 
     /**
