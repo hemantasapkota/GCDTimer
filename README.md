@@ -1,7 +1,7 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ### GCDTimer ###
-Grand Central Dispatch (GCD) Timer in Swift
+Well tested Grand Central Dispatch (GCD) Timer in Swift. 
 
 ### Usage ###
 
@@ -75,7 +75,7 @@ The example shows how to use GCDTimer to periodically poll newly submitted items
 ### License ###
 The MIT License (MIT)
 
-Copyright (c) 2015 Hemanta Sapkota
+Copyright (c) 2016 Hemanta Sapkota
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
