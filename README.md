@@ -1,7 +1,7 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ### GCDTimer ###
-Well tested Grand Central Dispatch (GCD) Timer in Swift. 
+Well tested Grand Central Dispatch (GCD) Timer in Swift. Checkout the [test](GCDTimerTests/GCDTimerTests.swift) file.
 
 ### Usage ###
 
