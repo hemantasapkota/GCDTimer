@@ -6,7 +6,7 @@ Well tested Grand Central Dispatch (GCD) Timer in Swift. Checkout the [test](GCD
 ### Usage ###
 
 #### Long running timer ####
-```
+```swift
 import GCDTimer
 
 class Demo {
@@ -31,7 +31,7 @@ class Demo {
 
 #### Autofinishing timer ####
 
-```
+```swift
 import GCDTimer
 
 class Demo {
@@ -52,11 +52,11 @@ class Demo {
 
 #### Dispatch After - Delay ####
 
-```
+```swift
 var index = 0
-GCDTimer.delay(2, block: { () -> Void in
-    index++
-})
+GCDTimer.delay(2) {
+    index += 1
+}
 ```
 
 ### Installation ###
