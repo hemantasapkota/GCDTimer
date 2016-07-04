@@ -23,7 +23,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Use Timer
         let timer = GCDTimer(intervalInSecs: 30)
         timer.Event = {
-            println("Reloading stories...")
+            print("Reloading stories...")
             self.loadStories()
         }
         timer.start()
@@ -34,12 +34,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         stories.removeAll(keepCapacity: false)
         
         let url = NSURL(string: "https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty")
+        
         let task = NSURLSession.sharedSession().dataTaskWithURL(url!) {(data, response, error) in
-            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSArray
+            
+            if data == nil {
+                print("\(error)")
+                return
+            }
+
+            let json = (try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)) as! NSArray
             for (var i = 0; i < 10; i++) {
                 let itemUrl = NSURL(string: "https://hacker-news.firebaseio.com/v0/item/\(json[i]).json?print=pretty")
+                print("\(itemUrl)")
                 let itemTask = NSURLSession.sharedSession().dataTaskWithURL(itemUrl!) { (data, response, error) in
-                    let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
+                    let json = (try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         let title = json["title"] as! String
                         self.stories.append(title)
@@ -49,6 +57,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 itemTask.resume()
             }
         }
+        
         task.resume()
     }
 
@@ -65,7 +74,7 @@ extension ViewController {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
         }
 
-        required init(coder aDecoder: NSCoder) {
+        required init?(coder aDecoder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
     }

@@ -162,7 +162,7 @@
 		2EE9CCA61B200F7A00D1FDF6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftMigration = 0700;
+				LastSwiftMigration = 0730;
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Hemanta Sapkota";
