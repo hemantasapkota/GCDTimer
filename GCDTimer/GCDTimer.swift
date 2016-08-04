@@ -35,9 +35,9 @@ public class GCDTimer {
             event = newValue
 
             dispatch_source_set_timer(timerSource, DISPATCH_TIME_NOW, UInt64(interval * Double(NSEC_PER_SEC)), 0)
-            dispatch_source_set_event_handler(timerSource, { () -> Void in
-                self.event()
-            })
+            dispatch_source_set_event_handler(timerSource) { [weak self] in
+                self?.event()
+            }
         }
     }
     
