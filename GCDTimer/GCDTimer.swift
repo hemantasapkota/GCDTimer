@@ -11,31 +11,57 @@ import Foundation
 /**
 *  GCD Timer.
 */
-public class GCDTimer {
+open class GCDTimer {
+    
+    // Swift 3 has removed support for dispatch_once. This class does the same thing ( roughly )
+    class Once {
+        
+        private var _onceTracker = [String]()
+        
+        // From: http://stackoverflow.com/questions/37886994/dispatch-once-in-swift-3
+        public func doIt(token: String, block:@noescape(Void)->Void) {
+            objc_sync_enter(self); defer { objc_sync_exit(self) }
+            
+            if _onceTracker.contains(token) {
+                return
+            }
+            
+            _onceTracker.append(token)
+            block()
+
+        }
+        
+        public func reset(token: String) {
+            if let tokenIndex = _onceTracker.index(of: token) {
+                _onceTracker.remove(at: tokenIndex)
+            }
+        }
+        
+    }
     
     /// A serial queue for processing our timer tasks
-    private static let gcdTimerQueue = dispatch_queue_create("gcdTimerQueue", DISPATCH_QUEUE_SERIAL)
+    fileprivate static let gcdTimerQueue = DispatchQueue(label: "gcdTimerQueue", attributes: [])
     
     /// Timer Source
-    private let timerSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, GCDTimer.gcdTimerQueue)
+    open let timerSource = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: UInt(0)), queue: GCDTimer.gcdTimerQueue)
     
     /// Default internal: 1 second
-    private var interval:Double = 1
+    fileprivate var interval:Double = 1
     
-    /// Ensure timer is started only once
-    private var startOnceToken: Int = 0
-
+    /// dispatch_once alternative
+    fileprivate let once = Once()
+    
     /// Event that is executed repeatedly
-    private var event: (() -> Void)!
-    public var Event: (() -> Void) {
+    fileprivate var event: (() -> Void)!
+    open var Event: (() -> Void) {
         get {
             return event
         }
         set {
             event = newValue
-
-            dispatch_source_set_timer(timerSource, DISPATCH_TIME_NOW, UInt64(interval * Double(NSEC_PER_SEC)), 0)
-            dispatch_source_set_event_handler(timerSource) { [weak self] in
+            
+            self.timerSource.scheduleRepeating(deadline: DispatchTime.now(), interval: DispatchTimeInterval.seconds(Int(interval)))
+            self.timerSource.setEventHandler { [weak self] in
                 self?.event()
             }
         }
@@ -55,33 +81,33 @@ public class GCDTimer {
     /**
         Start the timer.
     */
-    public func start() {
-        dispatch_once(&startOnceToken) {
-            dispatch_resume(self.timerSource)
+    open func start() {
+        once.doIt(token: "com.laex.GCDTimer") { (Void) in
+            self.timerSource.resume()
         }
     }
     
     /**
         Pause the timer.
     */
-    public func pause() {
-        dispatch_suspend(timerSource)
-        startOnceToken = 0
+    open func pause() {
+        timerSource.suspend()
+        once.reset(token: "com.laex.GCDTimer")
     }
 
     /**
         Executes a block after a delay on the main thread.
     */
-    public class func delay(afterSecs: Double, block: dispatch_block_t) {
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(afterSecs * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue(), block)
+    open class func delay(_ afterSecs: Double, block: @escaping ()->()) {
+        let delayTime = DispatchTime.now() + Double(Int64(afterSecs * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.asyncAfter(deadline: delayTime, execute: block)
     }
 
     /**
         Executes a block after a delay on a specified queue.
     */
-    public class func delay(afterSecs: Double, queue: dispatch_queue_t, block: dispatch_block_t) {
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(afterSecs * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, queue, block)
+    open class func delay(_ afterSecs: Double, queue: DispatchQueue, block: @escaping ()->()) {
+        let delayTime = DispatchTime.now() + Double(Int64(afterSecs * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        queue.asyncAfter(deadline: delayTime, execute: block)
     }
 }

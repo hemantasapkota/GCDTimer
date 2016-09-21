@@ -36,7 +36,7 @@ class GCDTimerTests: XCTestCase {
         timer.start()
         timer.start()
         
-        NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 5))
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 5))
         XCTAssert(index >= 5, "Event should have run for at least 5 seconds.")
         
         index = 0
@@ -45,7 +45,7 @@ class GCDTimerTests: XCTestCase {
         
         timer.start()
         
-        NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 5))
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 5))
         XCTAssert(index >= 5, "Event should have run for at least 5 seconds.")
     }
     
@@ -60,7 +60,7 @@ class GCDTimerTests: XCTestCase {
         
         timer.start()
         
-        NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 10))
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 10))
         
         XCTAssert(index > 10, "Event should have run for at least 10 seconds.")
     }
@@ -76,7 +76,7 @@ class GCDTimerTests: XCTestCase {
 
         timer.start()
 
-        NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 1))
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
 
         XCTAssert(index > 10, "Event should have run for at least 1 seconds.")
     }
@@ -96,7 +96,7 @@ class GCDTimerTests: XCTestCase {
         
         timer.start()
         
-        NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 10))
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 10))
         
         XCTAssert(index == 0, "Timer should have paused.")
     }
@@ -107,18 +107,18 @@ class GCDTimerTests: XCTestCase {
             index += 1
         })
 
-        NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 1))
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
 
         XCTAssert(index == 0, "The block shouldn't have been executed")
 
-        NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 2))
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 2))
 
         XCTAssert(index == 1, "The block should have executed after 2 secs.")
     }
 
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock() {
+        self.measure() {
             // Put the code you want to measure the time of here.
         }
     }
