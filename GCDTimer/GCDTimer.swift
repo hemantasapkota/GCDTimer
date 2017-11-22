@@ -19,7 +19,7 @@ open class GCDTimer {
         private var _onceTracker = [String]()
         
         // From: http://stackoverflow.com/questions/37886994/dispatch-once-in-swift-3
-        public func doIt(token: String, block:@noescape(Void)->Void) {
+        public func doIt(token: String, block:()->Void) {
             objc_sync_enter(self); defer { objc_sync_exit(self) }
             
             if _onceTracker.contains(token) {
@@ -82,7 +82,7 @@ open class GCDTimer {
         Start the timer.
     */
     open func start() {
-        once.doIt(token: "com.laex.GCDTimer") { (Void) in
+        once.doIt(token: "com.laex.GCDTimer") { () in
             self.timerSource.resume()
         }
     }
