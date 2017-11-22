@@ -7,14 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E124AEF1FC5232A002AEA59 /* GCDTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3CCE481B2038400085EA22 /* GCDTimer.framework */; };
 		2E3CCE221B2038180085EA22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CCE211B2038180085EA22 /* AppDelegate.swift */; };
 		2E3CCE241B2038180085EA22 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CCE231B2038180085EA22 /* ViewController.swift */; };
 		2E3CCE271B2038180085EA22 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E3CCE251B2038180085EA22 /* Main.storyboard */; };
 		2E3CCE291B2038180085EA22 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E3CCE281B2038180085EA22 /* Images.xcassets */; };
 		2E3CCE2C1B2038180085EA22 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E3CCE2A1B2038180085EA22 /* LaunchScreen.xib */; };
 		2E3CCE381B2038190085EA22 /* GCDTimerExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CCE371B2038190085EA22 /* GCDTimerExampleTests.swift */; };
-		2E3CCE4C1B211F000085EA22 /* GCDTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3CCE481B2038400085EA22 /* GCDTimer.framework */; };
-		2E3CCE4D1B211F000085EA22 /* GCDTimer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3CCE481B2038400085EA22 /* GCDTimer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,28 +38,7 @@
 			remoteGlobalIDString = 2EE9CCBA1B200F7A00D1FDF6;
 			remoteInfo = GCDTimerTests;
 		};
-		2E3CCE4E1B211F000085EA22 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E3CCE421B2038400085EA22 /* GCDTimer.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 2EE9CCAE1B200F7A00D1FDF6;
-			remoteInfo = GCDTimer;
-		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		2E3CCE501B211F000085EA22 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				2E3CCE4D1B211F000085EA22 /* GCDTimer.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2E3CCE1C1B2038180085EA22 /* GCDTimerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GCDTimerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E3CCE4C1B211F000085EA22 /* GCDTimer.framework in Frameworks */,
+				2E124AEF1FC5232A002AEA59 /* GCDTimer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,12 +157,10 @@
 				2E3CCE181B2038180085EA22 /* Sources */,
 				2E3CCE191B2038180085EA22 /* Frameworks */,
 				2E3CCE1A1B2038180085EA22 /* Resources */,
-				2E3CCE501B211F000085EA22 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				2E3CCE4F1B211F000085EA22 /* PBXTargetDependency */,
 			);
 			name = GCDTimerExample;
 			productName = GCDTimerExample;
@@ -317,11 +293,6 @@
 			target = 2E3CCE1B1B2038180085EA22 /* GCDTimerExample */;
 			targetProxy = 2E3CCE321B2038190085EA22 /* PBXContainerItemProxy */;
 		};
-		2E3CCE4F1B211F000085EA22 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = GCDTimer;
-			targetProxy = 2E3CCE4E1B211F000085EA22 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -432,8 +403,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = GCDTimerExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -442,8 +415,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = GCDTimerExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

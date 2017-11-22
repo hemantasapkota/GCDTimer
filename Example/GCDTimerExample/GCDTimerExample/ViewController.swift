@@ -18,7 +18,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.registerClass(TableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(TableViewCell.self, forCellReuseIdentifier: "Cell")
         
         // Use Timer
         let timer = GCDTimer(intervalInSecs: 30)
@@ -31,28 +31,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func loadStories() {
         // Load new HN stories 
-        stories.removeAll(keepCapacity: false)
+        stories.removeAll(keepingCapacity: false)
         
         let url = NSURL(string: "https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty")
         
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url!) {(data, response, error) in
+        let task = URLSession.shared.dataTask(with: url! as URL) {(data, response, error) in
             
             if data == nil {
                 print("\(error)")
                 return
             }
 
-            let json = (try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)) as! NSArray
-            for (var i = 0; i < 10; i++) {
+            let json = (try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSArray
+            for var i in (0..<10) {
                 let itemUrl = NSURL(string: "https://hacker-news.firebaseio.com/v0/item/\(json[i]).json?print=pretty")
                 print("\(itemUrl)")
-                let itemTask = NSURLSession.sharedSession().dataTaskWithURL(itemUrl!) { (data, response, error) in
-                    let json = (try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                let itemTask = URLSession.shared.dataTask(with: itemUrl! as URL) { (data, response, error) in
+                    let json = (try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSDictionary
+                    DispatchQueue.main.async {
                         let title = json["title"] as! String
                         self.stories.append(title)
                         self.tableView.reloadData()
-                    })
+                    }
                 }
                 itemTask.resume()
             }
@@ -79,12 +79,12 @@ extension ViewController {
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return stories.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! TableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! TableViewCell
         
         cell.textLabel?.text = stories[indexPath.item]
         
