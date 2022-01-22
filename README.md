@@ -69,13 +69,10 @@ The example shows how to use GCDTimer to periodically poll newly submitted items
 
 ![ExampleSS](Example/GCDTimerExample/ExampleSS.png)
 
-### Author ###
-* [Hemanta Sapkota](https://twitter.com/heeemanta) / [Blog](http://hemantasapkota.github.io/) / [Linked In](https://au.linkedin.com/in/hemantasapkota)
-
 ### License ###
 The MIT License (MIT)
 
-Copyright (c) 2021 Hemanta Sapkota
+Copyright (c) 2022 Hemanta Sapkota
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
