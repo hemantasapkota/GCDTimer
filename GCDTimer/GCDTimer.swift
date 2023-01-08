@@ -32,7 +32,7 @@ open class GCDTimer {
         }
         
         public func reset(token: String) {
-            if let tokenIndex = _onceTracker.index(of: token) {
+            if let tokenIndex = _onceTracker.firstIndex(of: token) {
                 _onceTracker.remove(at: tokenIndex)
             }
         }
@@ -60,9 +60,9 @@ open class GCDTimer {
         set {
             event = newValue
             
-            self.timerSource.scheduleRepeating(deadline: DispatchTime.now(), interval: DispatchTimeInterval.seconds(Int(interval)))
-            self.timerSource.setEventHandler { [weak self] in
-                self?.event()
+            self.timerSource.schedule(deadline: DispatchTime.now(), repeating: DispatchTimeInterval.seconds(Int(interval)))
+            self.timerSource.setEventHandler {
+                self.event()
             }
         }
     }

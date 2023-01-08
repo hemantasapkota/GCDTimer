@@ -3,7 +3,7 @@
 //  GCDTimerExampleTests
 //
 //  Created by Hemanta Sapkota on 4/06/2015.
-//  Copyright (c) 2015 Hemanta Sapkota. All rights reserved.
+//  Copyright (c) 2023 Hemanta Sapkota. All rights reserved.
 //
 
 import UIKit
@@ -28,7 +28,7 @@ class GCDTimerExampleTests: XCTestCase {
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock() {
+        self.measure() {
             // Put the code you want to measure the time of here.
         }
     }

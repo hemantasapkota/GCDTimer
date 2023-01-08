@@ -3,7 +3,7 @@
 //  GCDTimer
 //
 //  Created by Hemanta Sapkota on 4/06/2015.
-//  Copyright (c) 2015 Hemanta Sapkota. All rights reserved.
+//  Copyright (c) 2023 Hemanta Sapkota. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

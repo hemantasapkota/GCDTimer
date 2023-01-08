@@ -3,7 +3,7 @@
 //  GCDTimerExample
 //
 //  Created by Hemanta Sapkota on 4/06/2015.
-//  Copyright (c) 2015 Hemanta Sapkota. All rights reserved.
+//  Copyright (c) 2023 Hemanta Sapkota. All rights reserved.
 //
 
 import UIKit
@@ -18,7 +18,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(TableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(TableViewCell.self, forCellReuseIdentifier: "Cell")        
         
         // Use Timer
         let timer = GCDTimer(intervalInSecs: 30)
@@ -33,23 +33,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Load new HN stories 
         stories.removeAll(keepingCapacity: false)
         
-        let url = NSURL(string: "https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty")
+        let url = NSURL(string: "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty")
         
         let task = URLSession.shared.dataTask(with: url! as URL) {(data, response, error) in
             
             if data == nil {
-                print("\(error)")
+                print("\(String(describing: error))")
                 return
             }
 
             let json = (try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSArray
-            for var i in (0..<10) {
+            for i in (0..<10) {
                 let itemUrl = NSURL(string: "https://hacker-news.firebaseio.com/v0/item/\(json[i]).json?print=pretty")
-                print("\(itemUrl)")
                 let itemTask = URLSession.shared.dataTask(with: itemUrl! as URL) { (data, response, error) in
                     let json = (try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSDictionary
                     DispatchQueue.main.async {
                         let title = json["title"] as! String
+                        
+                        print("\(String(describing: title))")
+                        
                         self.stories.append(title)
                         self.tableView.reloadData()
                     }
@@ -70,7 +72,7 @@ extension ViewController {
     
     class TableViewCell : UITableViewCell {
         
-        override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
         }
 

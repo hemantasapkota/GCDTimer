@@ -72,7 +72,7 @@ The example shows how to use GCDTimer to periodically poll newly submitted items
 ### License ###
 The MIT License (MIT)
 
-Copyright (c) 2022 Hemanta Sapkota
+Copyright (c) 2023 Hemanta Sapkota
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
