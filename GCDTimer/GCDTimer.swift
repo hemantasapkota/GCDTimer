@@ -3,7 +3,7 @@
 //  GCDTimer
 //
 //  Created by Hemanta Sapkota on 4/06/2015.
-//  Copyright (c) 2015 Hemanta Sapkota. All rights reserved.
+//  Copyright (c) 2023 Hemanta Sapkota. All rights reserved.
 //
 
 import Foundation
@@ -43,7 +43,7 @@ open class GCDTimer {
     fileprivate static let gcdTimerQueue = DispatchQueue(label: "gcdTimerQueue", attributes: [])
     
     /// Timer Source
-    open let timerSource = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: UInt(0)), queue: GCDTimer.gcdTimerQueue)
+    public let timerSource = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: UInt(0)), queue: GCDTimer.gcdTimerQueue)
     
     /// Default internal: 1 second
     fileprivate var interval:Double = 1
