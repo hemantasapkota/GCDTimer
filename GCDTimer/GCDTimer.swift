@@ -3,7 +3,7 @@
 //  GCDTimer
 //
 //  Created by Hemanta Sapkota on 4/06/2015.
-//  Copyright (c) 2015 Hemanta Sapkota. All rights reserved.
+//  Copyright (c) 2023 Hemanta Sapkota. All rights reserved.
 //
 
 import Foundation
@@ -32,7 +32,7 @@ open class GCDTimer {
         }
         
         public func reset(token: String) {
-            if let tokenIndex = _onceTracker.index(of: token) {
+            if let tokenIndex = _onceTracker.firstIndex(of: token) {
                 _onceTracker.remove(at: tokenIndex)
             }
         }
@@ -43,7 +43,7 @@ open class GCDTimer {
     fileprivate static let gcdTimerQueue = DispatchQueue(label: "gcdTimerQueue", attributes: [])
     
     /// Timer Source
-    open let timerSource = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: UInt(0)), queue: GCDTimer.gcdTimerQueue)
+    public let timerSource = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: UInt(0)), queue: GCDTimer.gcdTimerQueue)
     
     /// Default internal: 1 second
     fileprivate var interval:Double = 1
@@ -60,9 +60,9 @@ open class GCDTimer {
         set {
             event = newValue
             
-            self.timerSource.scheduleRepeating(deadline: DispatchTime.now(), interval: DispatchTimeInterval.seconds(Int(interval)))
-            self.timerSource.setEventHandler { [weak self] in
-                self?.event()
+            self.timerSource.schedule(deadline: DispatchTime.now(), repeating: DispatchTimeInterval.seconds(Int(interval)))
+            self.timerSource.setEventHandler {
+                self.event()
             }
         }
     }
