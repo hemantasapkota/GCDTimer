@@ -119,6 +119,43 @@ class GCDTimerTests: XCTestCase {
         // This is an example of a performance test case.
         self.measure() {
             // Put the code you want to measure the time of here.
+            let timer = GCDTimer(intervalInSecs: 0.001)
+            var count = 0
+            
+            timer.Event = {
+                count += 1
+                if count >= 1000 {
+                    timer.pause()
+                }
+            }
+            
+            timer.start()
+            
+            // Wait for timer to complete 1000 iterations
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 5))
+        }
+    }
+    
+    func testTimerCreationPerformance() {
+        self.measure {
+            for _ in 0..<100 {
+                let timer = GCDTimer(intervalInSecs: 0.01)
+                // Make sure we set an Event handler to properly initialize the timer
+                timer.Event = {}
+            }
+        }
+    }
+    
+    func testTimerStartStopPerformance() {
+        self.measure {
+            let timer = GCDTimer(intervalInSecs: 0.01)
+            // Set an Event handler before starting the timer
+            timer.Event = {}
+            
+            for _ in 0..<50 {
+                timer.start()
+                timer.pause()
+            }
         }
     }
 }
